@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cifrado César</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3e5f5; /* Lila muy suave */
+      color: #4a148c; /* Lila oscuro */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #ede7f6; /* Fondo lila claro */
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #6a1b9a;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 15px;
+      border: 2px solid #ba68c8;
+      border-radius: 10px;
+      padding: 10px;
+      resize: none;
+      font-size: 14px;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 2px solid #ba68c8;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    button {
+      background: #ab47bc;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #8e24aa;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #d1c4e9;
+      border-radius: 10px;
+      min-height: 50px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cifrado César</h1>
+    <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..."></textarea><br>
+    <input type="number" id="desplazamiento" placeholder="Desplazamiento" min="1" max="25"><br>
+    <button onclick="cifrar()">Cifrar</button>
+    <button onclick="descifrar()">Descifrar</button>
+    <div class="resultado" id="resultado">El resultado aparecerá aquí...</div>
+  </div>
+
+  <script>
+    function cifrar() {
+      let texto = document.getElementById("mensaje").value;
+      let desplazamiento = parseInt(document.getElementById("desplazamiento").value) || 0;
+      let resultado = "";
+
+      for (let i = 0; i < texto.length; i++) {
+        let c = texto.charCodeAt(i);
+
+        if (c >= 65 && c <= 90) {
+          // Mayúsculas
+          resultado += String.fromCharCode((c - 65 + desplazamiento) % 26 + 65);
+        } else if (c >= 97 && c <= 122) {
+          // Minúsculas
+          resultado += String.fromCharCode((c - 97 + desplazamiento) % 26 + 97);
+        } else {
+          resultado += texto.charAt(i);
+        }
+      }
+
+      document.getElementById("resultado").innerText = resultado;
+    }
+
+    function descifrar() {
+      let texto = document.getElementById("mensaje").value;
+      let desplazamiento = parseInt(document.getElementById("desplazamiento").value) || 0;
+      let resultado = "";
+
+      for (let i = 0; i < texto.length; i++) {
+        let c = texto.charCodeAt(i);
+
+        if (c >= 65 && c <= 90) {
+          // Mayúsculas
+          resultado += String.fromCharCode((c - 65 - desplazamiento + 26) % 26 + 65);
+        } else if (c >= 97 && c <= 122) {
+          // Minúsculas
+          resultado += String.fromCharCode((c - 97 - desplazamiento + 26) % 26 + 97);
+        } else {
+          resultado += texto.charAt(i);
+        }
+      }
+
+      document.getElementById("resultado").innerText = resultado;
+    }
+  </script>
+</body>
+</html>
